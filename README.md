@@ -63,10 +63,8 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ![image](https://github.com/user-attachments/assets/ad6729b0-0d6d-498f-bc70-629415069f76)
 
----
 
 ![image](https://github.com/user-attachments/assets/d9b13544-6a5c-4b41-af84-3687f2b8ad01)
 
----
 
 ![image](https://github.com/user-attachments/assets/bdf194d0-e14b-4962-b839-258343744b85)
