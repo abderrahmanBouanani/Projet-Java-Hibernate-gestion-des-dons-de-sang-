@@ -49,7 +49,8 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 ---
 
 ## 4. 📊 Diagramme de classes
-![image](https://github.com/user-attachments/assets/0b022b3e-5e5a-4654-a12f-b2cd63f8cc6c)
+
+![image](https://github.com/user-attachments/assets/8ac7d6e9-5a89-49b7-b5d7-e7b9e7a180ff)
 
 ---
 
@@ -61,10 +62,8 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ## 6. 🎯 exécution des tests dans la console
 
-![image](https://github.com/user-attachments/assets/ad6729b0-0d6d-498f-bc70-629415069f76)
+![image](https://github.com/user-attachments/assets/9848c20c-e6c6-44d4-87e3-645b7805f918)
+
+![image](https://github.com/user-attachments/assets/e80c91ce-5f33-45cd-b7c2-75e944f3e129)
 
 
-![image](https://github.com/user-attachments/assets/d9b13544-6a5c-4b41-af84-3687f2b8ad01)
-
-
-![image](https://github.com/user-attachments/assets/bdf194d0-e14b-4962-b839-258343744b85)
