@@ -12,10 +12,10 @@ import javax.persistence.InheritanceType;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String nom;
-    private String email;
-    private String motDePasse;
+    protected int id;
+    protected String nom;
+    protected String email;
+    protected String motDePasse;
 
     public User() {
     }
