@@ -50,7 +50,8 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ## 4. 📊 Diagramme de classes
 
-![image](https://github.com/user-attachments/assets/8ac7d6e9-5a89-49b7-b5d7-e7b9e7a180ff)
+![image](https://github.com/user-attachments/assets/26d19514-ba82-456b-b7d2-99253448afa2)
+
 
 ---
 
