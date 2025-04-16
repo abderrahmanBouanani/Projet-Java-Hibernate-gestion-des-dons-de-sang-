@@ -1,55 +1,50 @@
 package entities;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "centres_don")
 public class CentreDon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id_centre")
+    private Integer idCentre;
     
-    private String nom;
-    private String adresse;
+    private String adresseCentre;
     
     @OneToMany(mappedBy = "centreDon")
     private List<Don> dons;
 
-    public CentreDon() {
+    // Constructeurs
+    public CentreDon() {}
+
+    public CentreDon(String adresseCentre) {
+        this.adresseCentre = adresseCentre;
+    }
+    
+    //getters, setters...
+
+    public Integer getIdCentre() {
+        return idCentre;
     }
 
-    public CentreDon(String nom, String adresse) {
-        this.nom = nom;
-        this.adresse = adresse;
+    public void setIdCentre(Integer idCentre) {
+        this.idCentre = idCentre;
     }
 
-    // Getters and Setters
-    public int getId() {
-        return id;
+    public String getAdresseCentre() {
+        return adresseCentre;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdresseCentre(String adresseCentre) {
+        this.adresseCentre = adresseCentre;
     }
 
     public List<Don> getDons() {
@@ -59,4 +54,5 @@ public class CentreDon {
     public void setDons(List<Don> dons) {
         this.dons = dons;
     }
+    
 }

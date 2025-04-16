@@ -50,21 +50,22 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ## 4. 📊 Diagramme de classes
 
-![image](https://github.com/user-attachments/assets/26d19514-ba82-456b-b7d2-99253448afa2)
+![image](https://github.com/user-attachments/assets/d1e1adb3-ebab-4178-8660-9daddc245783)
 
 
 ---
 
 ## 5. 🎯 modèle conceptuel de la base généré
 
-![image](https://github.com/user-attachments/assets/ff718f8a-e7ff-4b39-8658-c7e92fd00ed2)
+![image](https://github.com/user-attachments/assets/bdfa134c-fcb2-48b7-91ff-f8d20c9aad4a)
 
 ---
 
 ## 6. 🎯 exécution des tests dans la console
 
-![image](https://github.com/user-attachments/assets/9848c20c-e6c6-44d4-87e3-645b7805f918)
-
-![image](https://github.com/user-attachments/assets/e80c91ce-5f33-45cd-b7c2-75e944f3e129)
-
-
+![image](https://github.com/user-attachments/assets/e520f619-9e31-4ea3-88c2-4c5b01ead65e)
+![image](https://github.com/user-attachments/assets/91cdc1b2-f575-4b6d-865a-7bbc0178fefb)
+![image](https://github.com/user-attachments/assets/2f6310cf-6c73-4cda-a717-05c36c8de1b0)
+![image](https://github.com/user-attachments/assets/6d82a23b-378c-4704-bccf-857a54dc75d5)
+![image](https://github.com/user-attachments/assets/858b5d48-06a9-4ada-8808-c16b0cfdf451)
+![image](https://github.com/user-attachments/assets/51cbb020-dcd8-4912-9e42-1043b7dc604e)

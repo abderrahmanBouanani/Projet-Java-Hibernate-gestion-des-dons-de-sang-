@@ -1,64 +1,42 @@
 package entities;
 
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "dons")
 public class Don {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @EmbeddedId
+    private DonPK id = new DonPK();
     
-    @Temporal(TemporalType.DATE)
-    private Date date;
-    
-    private String lieu;
-    
+    // Redéfinition des relations pour accès simplifié
     @ManyToOne
+    @MapsId("donneurId")
+    @JoinColumn(name = "id_donneur")
     private Donneur donneur;
     
     @ManyToOne
+    @MapsId("centreDonId")
+    @JoinColumn(name = "id_centre")
     private CentreDon centreDon;
 
-    public Don() {
-    }
+    // Constructeurs
+    public Don() {}
 
-    public Don(Date date, String lieu, Donneur donneur, CentreDon centreDon) {
-        this.date = date;
-        this.lieu = lieu;
+    public Don(Date dateDon, String lieuDon, Donneur donneur, CentreDon centreDon) {
+        this.id = new DonPK(dateDon, lieuDon, donneur, centreDon);
         this.donneur = donneur;
-        this.centreDon = centreDon; // peut être null
+        this.centreDon = centreDon;
     }
 
-    // Getters and Setters
-    public int getId() {
+    // Getters/Setters...
+
+    public DonPK getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(DonPK id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
     }
 
     public Donneur getDonneur() {
@@ -76,4 +54,5 @@ public class Don {
     public void setCentreDon(CentreDon centreDon) {
         this.centreDon = centreDon;
     }
+    
 }

@@ -1,21 +1,23 @@
 package entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "admins")
 public class Admin extends User {
     private String matricule;
 
-    public Admin() {
-        super();
-    }
+    // Constructeurs
+    public Admin() {}
 
-    public Admin(String matricule, String nom, String email, String motDePasse) {
-        super(nom, email, motDePasse);
+    public Admin(String name, String email, String motDePasse, String matricule) {
+        super(name, email, motDePasse);
         this.matricule = matricule;
     }
+    
+    //getters, setters...
 
-    // Getters & Setters
     public String getMatricule() {
         return matricule;
     }
@@ -23,4 +25,5 @@ public class Admin extends User {
     public void setMatricule(String matricule) {
         this.matricule = matricule;
     }
+    
 }
