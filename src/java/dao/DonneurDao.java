@@ -1,7 +1,6 @@
 package dao;
 
 import entities.CentreDon;
-import entities.Don;
 import entities.Donneur;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +56,7 @@ public class DonneurDao extends AbstractDao<Donneur> {
         return donneurs;
     }
 
-    // Méthode Native 1: Centres de don fréquentés par un donneur
+    // Méthode Native : Centres de don fréquentés par un donneur
     public List<CentreDon> findDonationCentersByDonor(Donneur donneur) {
         Session session = null;
         Transaction tx = null;

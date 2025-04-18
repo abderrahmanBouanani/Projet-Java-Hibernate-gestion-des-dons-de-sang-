@@ -9,7 +9,6 @@ public class Don {
     @EmbeddedId
     private DonPK id = new DonPK();
     
-    // Redéfinition des relations pour accès simplifié
     @ManyToOne
     @MapsId("donneurId")
     @JoinColumn(name = "id_donneur")

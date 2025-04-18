@@ -5,7 +5,6 @@ import org.hibernate.Transaction;
 import org.hibernate.HibernateException;
 import util.HibernateUtil;
 import java.util.List;
-import Dao.IDao;
 
 public abstract class AbstractDao<T> implements IDao<T> {
     private final Class<T> entityClass;

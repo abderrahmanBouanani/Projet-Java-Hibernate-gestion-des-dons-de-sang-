@@ -1,2 +1,0 @@
-dao.AbstractDao
-dao.AbstractDao$HibernateOperation
