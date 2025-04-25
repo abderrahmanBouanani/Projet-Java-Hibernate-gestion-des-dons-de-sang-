@@ -1,0 +1,95 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controllers;
+
+import entities.Admin;
+import entities.Donneur;
+import entities.User;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import services.AdminService;
+import services.DonneurService;
+import services.UserService;
+import util.Util;
+
+/**
+ *
+ * @author Admin
+ */
+@WebServlet(name = "AuthentificationController", urlPatterns = {"/AuthentificationController"})
+public class AuthentificationController extends HttpServlet {
+
+    private UserService us;
+    private AdminService adminService;
+    private DonneurService donneurService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        us = new UserService();
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        AdminService as = new AdminService();
+        DonneurService ds = new DonneurService();
+
+        Admin admin = as.findAdminByEmail(email);
+        if (admin != null) {
+            if (admin.getMotDePasse().equals(password)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("admin", admin);
+                response.sendRedirect("users.jsp");
+                return;
+            } else {
+                response.sendRedirect("Authentification.jsp?msg=Mot de passe incorrect");
+                return;
+            }
+        }
+
+        Donneur donneur = ds.findDonneurByEmail(email);
+        if (donneur != null) {
+            if (donneur.getMotDePasse().equals(password)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("donneur", donneur);
+                response.sendRedirect("donneurs.jsp");
+                return;
+            } else {
+                response.sendRedirect("Authentification.jsp?msg=Mot de passe incorrect");
+                return;
+            }
+        }
+
+        response.sendRedirect("Authentification.jsp?msg=Email introuvable");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }
+
+}

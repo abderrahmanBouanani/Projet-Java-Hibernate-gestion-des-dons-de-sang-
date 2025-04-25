@@ -14,6 +14,10 @@ import javax.persistence.*;
     @NamedQuery(
         name = "findDonorsWithDonationsAfterDate", 
         query = "SELECT DISTINCT d FROM Donneur d JOIN d.dons don WHERE don.id.dateDon > :date"
+    ),
+    @NamedQuery(
+            name = "findDonneurByEmail", 
+            query = "SELECT d FROM Donneur d WHERE d.email = :email"
     )
 })
 @NamedNativeQueries({

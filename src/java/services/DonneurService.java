@@ -5,6 +5,10 @@ import entities.CentreDon;
 import entities.Donneur;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import util.HibernateUtil;
 
 public class DonneurService implements IService<Donneur> {
     private final DonneurDao dao;
@@ -49,5 +53,26 @@ public class DonneurService implements IService<Donneur> {
 
     public List<CentreDon> findDonationCentersByDonor(Donneur donneur) {
         return dao.findDonationCentersByDonor(donneur);
+    }
+
+    public Donneur findDonneurByEmail(String email) {
+        Session session = null;
+        Transaction tx = null;
+        Donneur donneur = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            donneur = (Donneur) session.getNamedQuery("findDonneurByEmail").setParameter("email", email).uniqueResult();
+            tx.commit();
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return donneur;
     }
 }

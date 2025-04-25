@@ -1,2 +1,0 @@
-entities.token
-PasswordResetToken

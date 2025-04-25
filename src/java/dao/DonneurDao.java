@@ -76,4 +76,25 @@ public class DonneurDao extends AbstractDao<Donneur> {
         }
         return centres;
     }
+    
+     public Donneur findDonneurByEmail(String email) {
+        Session session = null;
+        Transaction tx = null;
+        Donneur donneur = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            donneur = (Donneur) session.getNamedQuery("findClientByEmail").setParameter("email", email).uniqueResult();
+            tx.commit();
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return donneur;
+    }
 }
