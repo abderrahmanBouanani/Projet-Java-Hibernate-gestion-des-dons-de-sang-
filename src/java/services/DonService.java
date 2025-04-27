@@ -40,4 +40,10 @@ public class DonService implements IService<Don> {
     public Don findByIdPk(DonPK id) {
         return dao.findByIdPk(id);
     }
+
+    public List<Don> getDonsByDonneur(Integer id) {
+        return dao.getDonsByDonneur(id);
+    }
+    
+    
 }

@@ -84,12 +84,20 @@ public class DonneurDao extends AbstractDao<Donneur> {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
+            System.out.println("Recherche donneur avec email : " + email);
             donneur = (Donneur) session.getNamedQuery("findClientByEmail").setParameter("email", email).uniqueResult();
             tx.commit();
+            
+            if (donneur != null) {
+                 System.out.println("Donneur trouvé : " + donneur.getEmail()); 
+             } else {
+                 System.out.println("Aucun donneur trouvé avec l'email : " + email); 
+             }
         } catch (HibernateException ex) {
             if (tx != null) {
                 tx.rollback();
             }
+            ex.printStackTrace();
         } finally {
             if (session != null) {
                 session.close();

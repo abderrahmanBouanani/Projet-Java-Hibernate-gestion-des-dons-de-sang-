@@ -52,12 +52,7 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\n");
       out.write("        <div class=\"login-container\">\n");
       out.write("            <div class=\"login-left\">\n");
-      out.write("                <h2>Bienvenue chez BdRide</h2>\n");
-      out.write("                <p>Louez la voiture parfaite en quelques clics.</p>\n");
-      out.write("                <p>Connectez-vous pour accéder à vos réservations, gérer vos locations, et explorer notre large gamme de véhicules.</p>\n");
-      out.write("                <div class=\"mt-4\">\n");
-      out.write("                    <i class=\"bi bi-car-front\" style=\"font-size: 3rem;\"></i>\n");
-      out.write("                </div>\n");
+      out.write("                <h2>Bienvenue</h2>\n");
       out.write("            </div>\n");
       out.write("            <div class=\"login-right\">\n");
       out.write("                <h4 class=\"mb-4 text-center\">Connexion</h4>\n");

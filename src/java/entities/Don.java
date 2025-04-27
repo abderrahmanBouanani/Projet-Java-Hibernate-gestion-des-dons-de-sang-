@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name = "Don.findByDonneur", query = "SELECT l FROM Don l WHERE l.donneur.id = :idDonneur")
 @Table(name = "dons")
 public class Don {
     @EmbeddedId

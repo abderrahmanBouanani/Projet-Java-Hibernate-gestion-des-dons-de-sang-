@@ -31,7 +31,8 @@
                         <th>Lieu</th>
                         <th>Donneur</th>
                         <th>Groupe Sanguin</th>
-                        <th>Centre</th>
+                        <th>Nom du centre</th>
+                        <th>Adresse du centre</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +47,7 @@
                         <td><%= d.getId().getLieuDon() %></td>
                         <td><%= d.getDonneur().getName() %></td>
                         <td><%= d.getDonneur().getGroupeSanguin() %></td>
+                        <td><%= d.getCentreDon().getNameCentre()%></td>
                         <td><%= d.getCentreDon().getAdresseCentre() %></td>
                         <td>
                             <form method="POST" action="../DonController">

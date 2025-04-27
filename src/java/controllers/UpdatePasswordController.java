@@ -35,7 +35,7 @@ public class UpdatePasswordController extends HttpServlet {
             ds.update(d);
             response.sendRedirect("Authentification.jsp?email=" + d.getEmail());
         } else {
-            response.sendRedirect("updatemotdepasse.jsp?email=mot de passe incorrect");
+            response.sendRedirect("updateMotdePasse.jsp?email=mot de passe incorrect");
         }
     }
 

@@ -28,8 +28,8 @@ import util.Util;
 public class AuthentificationController extends HttpServlet {
 
     private UserService us;
-    private AdminService adminService;
-    private DonneurService donneurService;
+    private AdminService as;
+    private DonneurService ds;
 
     @Override
     public void init() throws ServletException {
@@ -43,8 +43,8 @@ public class AuthentificationController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        AdminService as = new AdminService();
-        DonneurService ds = new DonneurService();
+        as = new AdminService();
+        ds = new DonneurService();
 
         Admin admin = as.findAdminByEmail(email);
         if (admin != null) {
@@ -64,7 +64,7 @@ public class AuthentificationController extends HttpServlet {
             if (donneur.getMotDePasse().equals(password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("donneur", donneur);
-                response.sendRedirect("donneurs.jsp");
+                response.sendRedirect("profil.jsp");
                 return;
             } else {
                 response.sendRedirect("Authentification.jsp?msg=Mot de passe incorrect");

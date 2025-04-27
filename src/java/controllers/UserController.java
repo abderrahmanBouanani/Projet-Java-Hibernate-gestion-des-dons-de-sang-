@@ -45,7 +45,6 @@ public class UserController extends HttpServlet {
                 response.sendRedirect("Authentification.jsp");
             } else {
                 String nom = request.getParameter("nom");
-                String prenom = request.getParameter("prenom");
                 String email = request.getParameter("email");
                 String pwd = request.getParameter("pwd");
                 User u = new User(nom, email, pwd);

@@ -31,4 +31,24 @@ public class DonDao extends AbstractDao<Don> {
         }
         return entity;
     }
+    
+    public List<Don> getDonsByDonneur(int idDonneur) {
+         Session session = null;
+         Transaction tx = null;
+         List<Don> dons = null;
+         try {
+             session = HibernateUtil.getSessionFactory().openSession();
+             tx = session.beginTransaction();
+             dons = session.getNamedQuery("Don.findByDonneur").setParameter("idDonneur", idDonneur).list();
+         } catch (HibernateException e) {
+             if (tx != null) {
+                 tx.rollback();
+             }
+         } finally {
+             if (session != null) {
+                 session.close();
+             }
+         }
+         return dons;
+     }
 }

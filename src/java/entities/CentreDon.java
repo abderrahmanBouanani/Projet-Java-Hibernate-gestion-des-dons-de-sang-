@@ -16,7 +16,7 @@ public class CentreDon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_centre")
     private Integer idCentre;
-    
+    private String name;
     private String adresseCentre;
     
     @OneToMany(mappedBy = "centreDon")
@@ -38,7 +38,15 @@ public class CentreDon {
     public void setIdCentre(Integer idCentre) {
         this.idCentre = idCentre;
     }
+    
+    public String getNameCentre() {
+        return adresseCentre;
+    }
 
+    public void setNameCentre(String adresseCentre) {
+        this.adresseCentre = adresseCentre;
+    }
+    
     public String getAdresseCentre() {
         return adresseCentre;
     }
