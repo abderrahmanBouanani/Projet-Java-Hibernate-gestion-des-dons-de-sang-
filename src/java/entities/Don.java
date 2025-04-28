@@ -4,7 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name = "Don.findByDonneur", query = "SELECT l FROM Don l WHERE l.donneur.id = :idDonneur")
+@NamedQuery(name = "Don.findByDonneur", query = "SELECT d FROM Don d LEFT JOIN FETCH d.centreDon WHERE d.donneur.idUser = :idDonneur")
 @Table(name = "dons")
 public class Don {
     @EmbeddedId

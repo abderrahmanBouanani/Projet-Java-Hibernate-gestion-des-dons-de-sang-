@@ -1,4 +1,4 @@
-package org.apache.jsp;
+package org.apache.jsp.auth;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -56,7 +56,9 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("            </div>\n");
       out.write("            <div class=\"login-right\">\n");
       out.write("                <h4 class=\"mb-4 text-center\">Connexion</h4>\n");
-      out.write("                <form action=\"/gestionDesDonsDeSang/AuthentificationController\" method=\"post\">\n");
+      out.write("                <form action=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/AuthentificationController\" method=\"post\"> <!-- Modifié par v0 -->\n");
       out.write("                    <div class=\"mb-3\">\n");
       out.write("                        <label for=\"email\" class=\"form-label\">Email</label>\n");
       out.write("                        <div class=\"input-group\">\n");
@@ -88,14 +90,17 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\n");
       out.write("                    <div class=\"d-grid mb-3\">\n");
       out.write("                        <button type=\"button\" class=\"btn btn-outline-secondary\">\n");
-      out.write("                            <a href=\"forgotPassword.jsp\" class=\"text-center\" style=\"color: black;\">Mot de passe oublié ?</a>\n");
-      out.write("\n");
+      out.write("                            <a href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/RouteController?page=forgotPassword\" class=\"text-center\" style=\"color: black;\">Mot de passe oublié ?</a> <!-- Modifié par v0 -->\n");
       out.write("                        </button>\n");
       out.write("                    </div>\n");
       out.write("\n");
       out.write("                    <div class=\"text-center small-text\">\n");
       out.write("                        Vous n'avez pas de compte ?\n");
-      out.write("                        <a href=\"Inscription.jsp\">Créer un compte</a>\n");
+      out.write("                        <a href=\"");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/RouteController?page=inscription\">Créer un compte</a> <!-- Modifié par v0 -->\n");
       out.write("                    </div>\n");
       out.write("\n");
       out.write("                    ");

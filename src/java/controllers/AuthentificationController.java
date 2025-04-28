@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import entities.Admin;
 import entities.Donneur;
 import entities.User;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher; // Modifié par v0
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,69 +23,77 @@ import util.Util;
 @WebServlet(name = "AuthentificationController", urlPatterns = {"/AuthentificationController"})
 public class AuthentificationController extends HttpServlet {
 
-    private UserService us;
-    private AdminService as;
-    private DonneurService ds;
+   private UserService us;
+   private AdminService as;
+   private DonneurService ds;
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        us = new UserService();
-    }
+   @Override
+   public void init() throws ServletException {
+       super.init();
+       us = new UserService();
+   }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+       String email = request.getParameter("email");
+       String password = request.getParameter("password");
 
-        as = new AdminService();
-        ds = new DonneurService();
+       as = new AdminService();
+       ds = new DonneurService();
 
-        Admin admin = as.findAdminByEmail(email);
-        if (admin != null) {
-            if (admin.getMotDePasse().equals(password)) {
-                HttpSession session = request.getSession();
-                session.setAttribute("admin", admin);
-                response.sendRedirect("users.jsp");
-                return;
-            } else {
-                response.sendRedirect("Authentification.jsp?msg=Mot de passe incorrect");
-                return;
-            }
-        }
+       Admin admin = as.findAdminByEmail(email);
+       if (admin != null) {
+           if (admin.getMotDePasse().equals(password)) {
+               HttpSession session = request.getSession();
+               session.setAttribute("admin", admin);
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/users.jsp"); // Modifié par v0
+               dispatcher.forward(request, response); // Modifié par v0
+               return;
+           } else {
+               request.setAttribute("msg", "Mot de passe incorrect"); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
+               dispatcher.forward(request, response); // Modifié par v0
+               return;
+           }
+       }
 
-        Donneur donneur = ds.findDonneurByEmail(email);
-        if (donneur != null) {
-            if (donneur.getMotDePasse().equals(password)) {
-                HttpSession session = request.getSession();
-                session.setAttribute("donneur", donneur);
-                response.sendRedirect("profil.jsp");
-                return;
-            } else {
-                response.sendRedirect("Authentification.jsp?msg=Mot de passe incorrect");
-                return;
-            }
-        }
+       Donneur donneur = ds.findDonneurByEmail(email);
+       if (donneur != null) {
+           if (donneur.getMotDePasse().equals(password)) {
+               HttpSession session = request.getSession();
+               session.setAttribute("donneur", donneur);
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/profil.jsp"); // Modifié par v0
+               dispatcher.forward(request, response); // Modifié par v0
+               return;
+           } else {
+               request.setAttribute("msg", "Mot de passe incorrect"); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
+               dispatcher.forward(request, response); // Modifié par v0
+               return;
+           }
+       }
 
-        response.sendRedirect("Authentification.jsp?msg=Email introuvable");
-    }
+       request.setAttribute("msg", "Email introuvable"); // Modifié par v0
+       RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
+       dispatcher.forward(request, response); // Modifié par v0
+   }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+   @Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       processRequest(request, response);
+   }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+   @Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       processRequest(request, response);
+   }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
+   @Override
+   public String getServletInfo() {
+       return "Short description";
+   }
 
 }

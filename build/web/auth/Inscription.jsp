@@ -12,7 +12,7 @@
     <body>
         <fieldset>
             <legend>Inscrivez-vous</legend>
-            <form method="post" action="InscriptionController">
+            <form method="post" action="${pageContext.request.contextPath}/InscriptionController"> <!-- Modifié par v0 -->
                 <input type="hidden" name="id" value="<%= request.getParameter("id") != null ? request.getParameter("id") : "" %>" />
                 <table>
                     <tr class="form-group">

@@ -8,7 +8,7 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body {
-                background: url('images/liste.png') no-repeat center center fixed;
+                background: url('../images/liste.png') no-repeat center center fixed; /* Modifié par v0 */
                 background-size: cover;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 display: flex;
@@ -95,7 +95,7 @@
     <body>
         <fieldset>
             <legend>Verification</legend>
-            <form action="Verfier" method="post">
+            <form action="${pageContext.request.contextPath}/Verfier" method="post"> <!-- Modifié par v0 -->
                 <h3>Saisissez le code récupéré:</h3>
                 <table>
                     <tr>

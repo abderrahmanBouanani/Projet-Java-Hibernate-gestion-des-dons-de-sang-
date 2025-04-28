@@ -45,8 +45,8 @@
                             <td><%= u.getName()%></td>
                             <td><%= u.getEmail()%></td>
                             <td class="actions-container">
-                                <a href="<%= request.getContextPath()%>/UserController?id=<%= u.getIdUser()%>&op=delete">Supprimer</a>
-                                <a href="<%= request.getContextPath()%>/UserController?id=<%= u.getIdUser()%>&op=update">Modifier</a>
+                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=delete">Supprimer</a> <!-- Modifié par v0 -->
+                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=update">Modifier</a> <!-- Modifié par v0 -->
 
                             </td>
                         </tr>
@@ -62,8 +62,8 @@
                 </table>
             </fieldset>
 
-            <a href="Inscription.jsp" class="add-button">Ajouter un donneur</a>
-            <a href="donHistory.jsp" class="add-button">Historique des donns</a>
+            <a href="${pageContext.request.contextPath}/RouteController?page=inscription" class="add-button">Ajouter un donneur</a> <!-- Modifié par v0 -->
+            <a href="${pageContext.request.contextPath}/RouteController?page=donHistory" class="add-button">Historique des dons</a> <!-- Modifié par v0 -->
         </div>
     </body>
 </html>

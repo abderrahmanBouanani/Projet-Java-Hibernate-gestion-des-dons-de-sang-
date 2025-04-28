@@ -40,10 +40,15 @@ public class DonDao extends AbstractDao<Don> {
              session = HibernateUtil.getSessionFactory().openSession();
              tx = session.beginTransaction();
              dons = session.getNamedQuery("Don.findByDonneur").setParameter("idDonneur", idDonneur).list();
+             tx.commit();
+             
+                // Ajouter un log pour déboguer
+             System.out.println("Dons trouvés pour le donneur " + idDonneur + ": " + (dons != null ? dons.size() : 0));
          } catch (HibernateException e) {
              if (tx != null) {
                  tx.rollback();
              }
+             e.printStackTrace();
          } finally {
              if (session != null) {
                  session.close();

@@ -12,7 +12,7 @@
     <body>
         <fieldset>
             <legend>Mot de passe oublié</legend>
-            <form action="Mdob" method="post">
+            <form action="${pageContext.request.contextPath}/Mdob" method="post"> <!-- Modifié par v0 -->
                 <h3>Entrez votre adresse e-mail pour recevoir le code de réinitialisation</h3>
                 <table>
                     <tr>

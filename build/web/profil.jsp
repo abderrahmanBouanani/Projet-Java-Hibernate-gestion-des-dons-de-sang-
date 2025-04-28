@@ -30,6 +30,9 @@
 </head>
 <body>
     <h1>Historique de mes dons</h1>
+    
+    <%  %>
+    
 
     <%
         // Récupérer la liste des dons
@@ -56,7 +59,7 @@
                     <tr>
                         <td><%= d.getCentreDon().getNameCentre() %></td>
                         <td><%= sdf.format(d.getId().getDateDon()) %></td>
-                        <td><%= sdf.format(d.getId().getLieuDon()) %></td>
+                        <td><%= d.getId().getLieuDon() %></td>
                     </tr>
                 <%
                     }
@@ -70,5 +73,9 @@
     <%
         }
     %>
+    
+    <div style="text-align:center; margin-top: 20px;">
+        <a href="${pageContext.request.contextPath}/deconnexionController">Déconnexion</a> <!-- Modifié par v0 -->
+    </div>
 </body>
 </html>

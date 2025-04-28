@@ -13,7 +13,7 @@
             </div>
             <div class="login-right">
                 <h4 class="mb-4 text-center">Connexion</h4>
-                <form action="/gestionDesDonsDeSang/AuthentificationController" method="post">
+                <form action="${pageContext.request.contextPath}/AuthentificationController" method="post"> <!-- Modifié par v0 -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <div class="input-group">
@@ -45,14 +45,13 @@
 
                     <div class="d-grid mb-3">
                         <button type="button" class="btn btn-outline-secondary">
-                            <a href="forgotPassword.jsp" class="text-center" style="color: black;">Mot de passe oublié ?</a>
-
+                            <a href="${pageContext.request.contextPath}/RouteController?page=forgotPassword" class="text-center" style="color: black;">Mot de passe oublié ?</a> <!-- Modifié par v0 -->
                         </button>
                     </div>
 
                     <div class="text-center small-text">
                         Vous n'avez pas de compte ?
-                        <a href="Inscription.jsp">Créer un compte</a>
+                        <a href="${pageContext.request.contextPath}/RouteController?page=inscription">Créer un compte</a> <!-- Modifié par v0 -->
                     </div>
 
                     <% if (request.getParameter("msg") != null) {%>

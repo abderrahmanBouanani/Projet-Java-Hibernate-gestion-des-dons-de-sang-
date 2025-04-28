@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import entities.Donneur;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher; // Modifié par v0
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,48 +13,51 @@ import services.DonneurService;
 import services.SendMail;
 
 /**
- *
- * @author Admin
- */
+*
+* @author Admin
+*/
 @WebServlet(name = "Mdob", urlPatterns = {"/Mdob"})
 public class Mdob extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String email = request.getParameter("email");
-        DonneurService ds = new DonneurService();
-        Donneur d = ds.findDonneurByEmail(email);
-        if (d != null) {
-            String code = String.format("%06d", (int) (Math.random() * 1000000));
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       String email = request.getParameter("email");
+       DonneurService ds = new DonneurService();
+       Donneur d = ds.findDonneurByEmail(email);
+       if (d != null) {
+           String code = String.format("%06d", (int) (Math.random() * 1000000));
 
-            HttpSession session = request.getSession();
-            session.setAttribute("donneur", d);
-            session.setAttribute("code_verification", code);
+           HttpSession session = request.getSession();
+           session.setAttribute("donneur", d);
+           session.setAttribute("code_verification", code);
 
-            SendMail sed = new SendMail();
-            sed.send(code, email);
+           SendMail sed = new SendMail();
+           sed.send(code, email);
 
-            response.sendRedirect("verification.jsp");
-        } else {
-            response.sendRedirect("forgotPassword.jsp?msg=Email n’existe pas");
-        }
-    }
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/verification.jsp"); // Modifié par v0
+           dispatcher.forward(request, response); // Modifié par v0
+       } else {
+           request.setAttribute("msg", "Email n'existe pas"); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/forgotPassword.jsp"); // Modifié par v0
+           dispatcher.forward(request, response); // Modifié par v0
+       }
+   }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+   @Override
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       processRequest(request, response);
+   }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+   @Override
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+           throws ServletException, IOException {
+       processRequest(request, response);
+   }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
+   @Override
+   public String getServletInfo() {
+       return "Short description";
+   }
 
 }
