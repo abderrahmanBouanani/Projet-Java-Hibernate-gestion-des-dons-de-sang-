@@ -64,6 +64,7 @@
 
             <a href="${pageContext.request.contextPath}/RouteController?page=inscription" class="add-button">Ajouter un donneur</a> <!-- Modifié par v0 -->
             <a href="${pageContext.request.contextPath}/RouteController?page=donHistory" class="add-button">Historique des dons</a> <!-- Modifié par v0 -->
+            <a href="${pageContext.request.contextPath}/RouteController?page=donGraph" class="add-button">Graphe des dons</a> 
         </div>
     </body>
 </html>

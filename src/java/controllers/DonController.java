@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,8 +51,8 @@ public class DonController extends HttpServlet {
                Don don = new Don(dateDon, lieuDon, donneur, centre);
                ds.create(don);
                
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/dons/page.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/dons/page.jsp"); 
+               dispatcher.forward(request, response); 
            } catch (ParseException e) {
                throw new ServletException("Format de date invalide", e);
            }
@@ -81,8 +81,8 @@ public class DonController extends HttpServlet {
                    ds.delete(don);
                }
                
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/dons/page.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/dons/page.jsp"); 
+               dispatcher.forward(request, response); 
            } catch (Exception e) {
                throw new ServletException("Erreur lors de la suppression", e);
            }

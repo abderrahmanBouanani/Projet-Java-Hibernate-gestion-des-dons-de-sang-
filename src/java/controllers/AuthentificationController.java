@@ -2,9 +2,8 @@ package controllers;
 
 import entities.Admin;
 import entities.Donneur;
-import entities.User;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import services.AdminService;
 import services.DonneurService;
 import services.UserService;
-import util.Util;
 
 /**
  *
@@ -35,6 +33,10 @@ public class AuthentificationController extends HttpServlet {
 
    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
+       HttpSession session = request.getSession();
+       
+       session.removeAttribute("donneur");
+       session.removeAttribute("admin");
 
        String email = request.getParameter("email");
        String password = request.getParameter("password");
@@ -45,15 +47,14 @@ public class AuthentificationController extends HttpServlet {
        Admin admin = as.findAdminByEmail(email);
        if (admin != null) {
            if (admin.getMotDePasse().equals(password)) {
-               HttpSession session = request.getSession();
                session.setAttribute("admin", admin);
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/users.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=users"); 
+               dispatcher.forward(request, response); 
                return;
            } else {
-               request.setAttribute("msg", "Mot de passe incorrect"); // Modifié par v0
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               request.setAttribute("msg", "Mot de passe incorrect"); 
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+               dispatcher.forward(request, response); 
                return;
            }
        }
@@ -61,22 +62,21 @@ public class AuthentificationController extends HttpServlet {
        Donneur donneur = ds.findDonneurByEmail(email);
        if (donneur != null) {
            if (donneur.getMotDePasse().equals(password)) {
-               HttpSession session = request.getSession();
                session.setAttribute("donneur", donneur);
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/profil.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=profil"); 
+               dispatcher.forward(request, response); 
                return;
            } else {
-               request.setAttribute("msg", "Mot de passe incorrect"); // Modifié par v0
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               request.setAttribute("msg", "Mot de passe incorrect"); 
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+               dispatcher.forward(request, response); 
                return;
            }
        }
 
-       request.setAttribute("msg", "Email introuvable"); // Modifié par v0
-       RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-       dispatcher.forward(request, response); // Modifié par v0
+       request.setAttribute("msg", "Email introuvable"); 
+       RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+       dispatcher.forward(request, response); 
    }
 
    @Override

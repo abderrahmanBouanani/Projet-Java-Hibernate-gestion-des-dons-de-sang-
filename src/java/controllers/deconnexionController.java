@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +20,20 @@ public class deconnexionController extends HttpServlet {
    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
 
-       HttpSession session = request.getSession();
-       session.invalidate();
+       HttpSession session = request.getSession(false);
+        if (session != null) {
+            // Supprimer les attributs de session
+            session.removeAttribute("donneur");
+            session.removeAttribute("admin");
+            
+            // Invalider la session
+            session.invalidate();
+            
+        }
+        
        
-       RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-       dispatcher.forward(request, response); // Modifié par v0
+       RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+       dispatcher.forward(request, response); 
    }
 
    @Override

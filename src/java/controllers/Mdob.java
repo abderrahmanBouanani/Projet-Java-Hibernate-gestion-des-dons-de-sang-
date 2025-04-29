@@ -2,7 +2,7 @@ package controllers;
 
 import entities.Donneur;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,12 +34,12 @@ public class Mdob extends HttpServlet {
            SendMail sed = new SendMail();
            sed.send(code, email);
 
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/verification.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/verification.jsp"); 
+           dispatcher.forward(request, response); 
        } else {
-           request.setAttribute("msg", "Email n'existe pas"); // Modifié par v0
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/forgotPassword.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           request.setAttribute("msg", "Email n'existe pas"); 
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/forgotPassword.jsp"); 
+           dispatcher.forward(request, response); 
        }
    }
 

@@ -2,7 +2,7 @@ package controllers;
 
 import entities.Donneur;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,13 +30,13 @@ public class UpdatePasswordController extends HttpServlet {
            d.setMotDePasse(Util.md5(password));
            ds.update(d);
            
-           request.setAttribute("email", d.getEmail()); // Modifié par v0
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           request.setAttribute("email", d.getEmail()); 
+           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+           dispatcher.forward(request, response); 
        } else {
-           request.setAttribute("msg", "Mot de passe incorrect"); // Modifié par v0
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/updateMotdePasse.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           request.setAttribute("msg", "Mot de passe incorrect"); 
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/updateMotdePasse.jsp"); 
+           dispatcher.forward(request, response); 
        }
    }
 

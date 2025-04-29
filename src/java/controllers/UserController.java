@@ -2,7 +2,7 @@ package controllers;
 
 import entities.User;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,8 +38,8 @@ public class UserController extends HttpServlet {
                String pwd = request.getParameter("pwd");
                us.create(new User(nom, email, pwd));
                
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+               dispatcher.forward(request, response); 
            } else {
                String nom = request.getParameter("nom");
                String email = request.getParameter("email");
@@ -48,26 +48,26 @@ public class UserController extends HttpServlet {
                u.setIdUser(Integer.parseInt(id));
                us.update(u);
                
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/users.jsp"); // Modifié par v0
-               dispatcher.forward(request, response); // Modifié par v0
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=users"); 
+               dispatcher.forward(request, response); 
            }
        } else if (op.equals("delete")) {
            String id = request.getParameter("id");
            us.delete(us.findById(Integer.parseInt(id)));
            
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/users.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=users"); 
+           dispatcher.forward(request, response); 
        } else if (op.equals("update")) {
            String id = request.getParameter("id");
            User u = us.findById(Integer.parseInt(id));
            
-           request.setAttribute("id", u.getIdUser()); // Modifié par v0
-           request.setAttribute("nom", u.getName()); // Modifié par v0
-           request.setAttribute("email", u.getEmail()); // Modifié par v0
-           request.setAttribute("pwd", u.getMotDePasse()); // Modifié par v0
+           request.setAttribute("id", u.getIdUser()); 
+           request.setAttribute("nom", u.getName()); 
+           request.setAttribute("email", u.getEmail()); 
+           request.setAttribute("pwd", u.getMotDePasse()); 
            
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Inscription.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=inscription"); 
+           dispatcher.forward(request, response); 
        }
    }
 

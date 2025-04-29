@@ -2,7 +2,7 @@ package controllers;
 
 import entities.Donneur;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher; // Modifié par v0
+import javax.servlet.RequestDispatcher; 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,18 +40,18 @@ public class DonneurController extends HttpServlet {
                d.setIdUser(Integer.parseInt(id));
                ds.update(d);
            }
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); 
+           dispatcher.forward(request, response); 
        } else if (op.equals("delete")) {
            int id = Integer.parseInt(request.getParameter("id"));
            ds.delete(ds.findById(id));
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); 
+           dispatcher.forward(request, response); 
        } else if (op.equals("update")) {
            Donneur d = ds.findById(Integer.parseInt(request.getParameter("id")));
-           request.setAttribute("donneur", d); // Modifié par v0
-           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); // Modifié par v0
-           dispatcher.forward(request, response); // Modifié par v0
+           request.setAttribute("donneur", d); 
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/donneurs/page.jsp"); 
+           dispatcher.forward(request, response); 
        }
    }
 

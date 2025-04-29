@@ -45,5 +45,8 @@ public class DonService implements IService<Don> {
         return dao.getDonsByDonneur(id);
     }
     
+    public List<Object[]> countDonByCentreDon() {
+        return dao.countDonByCentreDon();
+    }
     
 }

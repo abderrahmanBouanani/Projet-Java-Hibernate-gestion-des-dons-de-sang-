@@ -1,3 +1,5 @@
+<%@page import="entities.Donneur"%>
+<%@page import="services.DonService"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entities.Don" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -36,7 +38,10 @@
 
     <%
         // Récupérer la liste des dons
-        List<Don> dons = (List<Don>) request.getAttribute("dons");
+        Donneur donneur = (Donneur) session.getAttribute("donneur");
+        DonService ds = new DonService();
+        List<Don> dons = ds.getDonsByDonneur(donneur.getIdUser());
+        
 
         // Format de la date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

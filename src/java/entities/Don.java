@@ -4,7 +4,16 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@NamedQuery(name = "Don.findByDonneur", query = "SELECT d FROM Don d LEFT JOIN FETCH d.centreDon WHERE d.donneur.idUser = :idDonneur")
+@NamedQueries({
+    @NamedQuery(name = "Don.findByDonneur", 
+            query = "SELECT d FROM Don d LEFT JOIN FETCH d.centreDon WHERE d.donneur.idUser = :idDonneur"),
+    @NamedQuery(
+    name = "Don.countDonByCentreDon",
+    query = "SELECT d.centreDon.name AS centreName, COUNT(d) AS donCount " +
+           "FROM Don d LEFT JOIN d.centreDon " +
+           "GROUP BY d.centreDon.name " +
+           "ORDER BY donCount DESC")
+})
 @Table(name = "dons")
 public class Don {
     @EmbeddedId
