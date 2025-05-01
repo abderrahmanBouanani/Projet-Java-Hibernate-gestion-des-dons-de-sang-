@@ -75,6 +75,11 @@ public class RouteController extends HttpServlet {
                 RequestDispatcher usersDispatcher = request.getRequestDispatcher("/users.jsp"); 
                 usersDispatcher.forward(request, response); 
                 break;
+            
+            case "modification":
+                RequestDispatcher modificationDispatcher = request.getRequestDispatcher("/modification.jsp"); 
+                modificationDispatcher.forward(request, response); 
+                break;    
                 
             case "profil":
                 RequestDispatcher profilDispatcher = request.getRequestDispatcher("/profil.jsp"); 

@@ -4,6 +4,7 @@
 <%@ page import="entities.Don" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,13 @@
             margin-top: 30px;
         }
     </style>
+    <%
+       Donneur donneur = (Donneur) session.getAttribute("donneur");
+       if(donneur == null){
+           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+           dispatcher.forward(request, response); 
+       }
+    %>
 </head>
 <body>
     <h1>Historique de mes dons</h1>
@@ -38,7 +46,7 @@
 
     <%
         // Récupérer la liste des dons
-        Donneur donneur = (Donneur) session.getAttribute("donneur");
+       
         DonService ds = new DonService();
         List<Don> dons = ds.getDonsByDonneur(donneur.getIdUser());
         

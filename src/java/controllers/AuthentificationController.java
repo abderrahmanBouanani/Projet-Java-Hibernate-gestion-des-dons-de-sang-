@@ -34,9 +34,6 @@ public class AuthentificationController extends HttpServlet {
    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
            throws ServletException, IOException {
        HttpSession session = request.getSession();
-       
-       session.removeAttribute("donneur");
-       session.removeAttribute("admin");
 
        String email = request.getParameter("email");
        String password = request.getParameter("password");

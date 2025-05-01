@@ -1,3 +1,4 @@
+<%@page import="entities.Admin"%>
 <%@page import="entities.User"%>
 <%@page import="services.UserService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -4,6 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Connexion</title>
+        <%
+            session.removeAttribute("donneur");
+            session.removeAttribute("admin");
+        %>
     </head>
     <body>
 

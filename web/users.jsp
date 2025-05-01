@@ -1,3 +1,4 @@
+<%@page import="entities.Admin"%>
 <%@page import="entities.User"%>
 <%@page import="services.UserService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +13,13 @@
             th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
             th { background-color: #f2f2f2; }
         </style>
+        <%
+            Admin admin = (Admin) session.getAttribute("admin");
+            if(admin == null){
+                RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+                dispatcher.forward(request, response); 
+            }
+         %>
     </head>
     <body>
         <div class="sidebar">
@@ -45,8 +53,8 @@
                             <td><%= u.getName()%></td>
                             <td><%= u.getEmail()%></td>
                             <td class="actions-container">
-                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=delete">Supprimer</a> <!-- Modifié par v0 -->
-                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=update">Modifier</a> <!-- Modifié par v0 -->
+                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=delete">Supprimer</a> 
+                                <a href="${pageContext.request.contextPath}/UserController?id=<%= u.getIdUser()%>&op=update">Modifier</a> 
 
                             </td>
                         </tr>
@@ -61,9 +69,12 @@
                     </tbody>
                 </table>
             </fieldset>
-
-            <a href="${pageContext.request.contextPath}/RouteController?page=inscription" class="add-button">Ajouter un donneur</a> <!-- Modifié par v0 -->
-            <a href="${pageContext.request.contextPath}/RouteController?page=donHistory" class="add-button">Historique des dons</a> <!-- Modifié par v0 -->
+                    
+            <div style="text-align:center; margin-top: 20px;">
+                <a href="${pageContext.request.contextPath}/deconnexionController">Déconnexion</a> 
+            </div>        
+            <a href="${pageContext.request.contextPath}/RouteController?page=inscription" class="add-button">Ajouter un donneur</a> 
+            <a href="${pageContext.request.contextPath}/RouteController?page=donHistory" class="add-button">Historique des dons</a> 
             <a href="${pageContext.request.contextPath}/RouteController?page=donGraph" class="add-button">Graphe des dons</a> 
         </div>
     </body>

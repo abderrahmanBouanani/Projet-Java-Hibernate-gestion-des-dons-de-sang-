@@ -7,12 +7,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Formulaire d'inscription</title>
+        <title>Formulaire de modification</title>
         
     </head>
     <body>
         <fieldset>
-            <legend>Inscrivez-vous</legend>
+            <legend>Modification</legend>
             <form method="post" action="${pageContext.request.contextPath}/InscriptionController"> <!-- Modifié par v0 -->
                 <input type="hidden" name="id" value="<%= request.getParameter("id") != null ? request.getParameter("id") : "" %>" />
                 <table>
