@@ -58,7 +58,7 @@ public class DonController extends HttpServlet {
            }
        } else if (op.equals("delete")) {
            try {
-               // Récupérez tous les paramètres de la clé composite
+               // R��cupérez tous les paramètres de la clé composite
                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                Date dateDon = sdf.parse(request.getParameter("dateDon"));
                String lieuDon = request.getParameter("lieuDon");

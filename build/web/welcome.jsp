@@ -87,9 +87,6 @@
                             <a class="nav-link" href="#features">Fonctionnalités</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link btn btn-danger ms-2 text-white" href="${pageContext.request.contextPath}/RouteController?page=login">
                                 <i class="bi bi-box-arrow-in-right"></i> Connexion
                             </a>
@@ -180,51 +177,6 @@
             </div>
         </section>
         
-        <!-- Contact Section -->
-        <section class="py-5" id="contact">
-            <div class="container">
-                <h2 class="text-center mb-5">Contactez-nous</h2>
-                <div class="row">
-                    <div class="col-md-6">
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="name" placeholder="Votre nom">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Votre email">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control" id="message" rows="5" placeholder="Votre message"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-danger">Envoyer</button>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h3 class="card-title">Informations de contact</h3>
-                                <p class="card-text">N'hésitez pas à nous contacter pour toute question ou suggestion.</p>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> 123 Rue du Don, Casablanca, Maroc</li>
-                                    <li class="mb-2"><i class="bi bi-telephone me-2"></i> +212 5XX-XXXXXX</li>
-                                    <li class="mb-2"><i class="bi bi-envelope me-2"></i> contact@gestionsang.ma</li>
-                                </ul>
-                                <div class="mt-4">
-                                    <a href="#" class="me-3 text-dark"><i class="bi bi-facebook fs-4"></i></a>
-                                    <a href="#" class="me-3 text-dark"><i class="bi bi-twitter fs-4"></i></a>
-                                    <a href="#" class="me-3 text-dark"><i class="bi bi-instagram fs-4"></i></a>
-                                    <a href="#" class="text-dark"><i class="bi bi-linkedin fs-4"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
@@ -239,7 +191,6 @@
                             <li><a href="#">Accueil</a></li>
                             <li><a href="#about">À propos</a></li>
                             <li><a href="#features">Fonctionnalités</a></li>
-                            <li><a href="#contact">Contact</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">

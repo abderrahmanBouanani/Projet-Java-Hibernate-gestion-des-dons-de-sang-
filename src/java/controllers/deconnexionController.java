@@ -28,12 +28,14 @@ public class deconnexionController extends HttpServlet {
             
             // Invalider la session
             session.invalidate();
-            
         }
         
-       
-       RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
-       dispatcher.forward(request, response); 
+        // Ajouter un message de déconnexion
+        request.setAttribute("successMessage", "Vous avez été déconnecté avec succès. Vous pouvez toujours naviguer en mode lecture seule.");
+        
+        // Rediriger vers la page d'accueil au lieu de la page de connexion
+        RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp"); 
+        dispatcher.forward(request, response); 
    }
 
    @Override

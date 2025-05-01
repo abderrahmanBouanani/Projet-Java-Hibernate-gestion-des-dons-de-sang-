@@ -42,10 +42,32 @@ public class RouteController extends HttpServlet {
         }        
         
         if (page == null) {
-            // Redirection par défaut vers la page d'authentification
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); 
+            // Redirection par défaut vers la page d'accueil
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp"); 
             dispatcher.forward(request, response); 
             return;
+        }
+        
+        // Transférer les messages d'erreur et de succès de la session vers les attributs de requête
+        if (session != null) {
+            if (session.getAttribute("successMessage") != null) {
+                request.setAttribute("successMessage", session.getAttribute("successMessage"));
+                session.removeAttribute("successMessage");
+            }
+            if (session.getAttribute("errorMessage") != null) {
+                request.setAttribute("error", session.getAttribute("errorMessage"));
+                session.removeAttribute("errorMessage");
+            }
+        }
+        
+        // Vérifier si l'utilisateur est connecté
+        boolean isLoggedIn = (session != null && (session.getAttribute("donneur") != null || session.getAttribute("admin") != null));
+        boolean isAdmin = (session != null && session.getAttribute("admin") != null);
+        boolean isDonneur = (session != null && session.getAttribute("donneur") != null);
+        
+        // Ajouter un attribut pour indiquer le mode lecture seule
+        if (!isLoggedIn) {
+            request.setAttribute("readOnlyMode", true);
         }
         
         switch (page) { 
@@ -82,6 +104,14 @@ public class RouteController extends HttpServlet {
                 break;
             
             case "modification":
+                // Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+                if (!isLoggedIn) {
+                    request.setAttribute("error", "Veuillez vous connecter pour modifier votre profil");
+                    RequestDispatcher loginRedirect = request.getRequestDispatcher("/auth/Authentification.jsp");
+                    loginRedirect.forward(request, response);
+                    return;
+                }
+                
                 // Récupérer l'ID du donneur à modifier
                 String id = request.getParameter("id");
                 if (id != null && !id.isEmpty()) {
@@ -95,30 +125,61 @@ public class RouteController extends HttpServlet {
                 break;    
                 
             case "profil":
+                // Si l'utilisateur n'est pas connecté, afficher un message mais permettre la navigation
+                if (!isLoggedIn) {
+                    request.setAttribute("info", "Vous êtes en mode lecture seule. Connectez-vous pour accéder à toutes les fonctionnalités.");
+                }
+                
                 RequestDispatcher profilDispatcher = request.getRequestDispatcher("/profil.jsp"); 
                 profilDispatcher.forward(request, response); 
                 break; 
                 
             case "dons":
+                // Si l'utilisateur n'est pas admin, afficher un message mais permettre la navigation
+                if (!isAdmin && isActionRequest(request)) {
+                    request.setAttribute("error", "Vous devez être administrateur pour effectuer cette action");
+                    RequestDispatcher loginRedirect = request.getRequestDispatcher("/auth/Authentification.jsp");
+                    loginRedirect.forward(request, response);
+                    return;
+                }
+                
                 RequestDispatcher donsDispatcher = request.getRequestDispatcher("/dons/page.jsp"); 
                 donsDispatcher.forward(request, response); 
                 break;
                 
             case "donHistory":
+                // Si l'utilisateur n'est pas connecté, afficher un message mais permettre la navigation
+                if (!isLoggedIn) {
+                    request.setAttribute("info", "Vous êtes en mode lecture seule. Connectez-vous pour accéder à toutes les fonctionnalités.");
+                }
+                
                 RequestDispatcher historyDispatcher = request.getRequestDispatcher("/donHistory.jsp"); 
                 historyDispatcher.forward(request, response); 
                 break;
                 
             case "donGraph":
+                // Si l'utilisateur n'est pas connecté, afficher un message mais permettre la navigation
+                if (!isLoggedIn) {
+                    request.setAttribute("info", "Vous êtes en mode lecture seule. Connectez-vous pour accéder à toutes les fonctionnalités.");
+                }
+                
                 RequestDispatcher donGraphDispatcher = request.getRequestDispatcher("/donGraph.jsp"); 
                 donGraphDispatcher.forward(request, response); 
                 break;    
                 
             default:
-                RequestDispatcher defaultDispatcher = request.getRequestDispatcher("/auth/Authentification.jsp"); 
+                RequestDispatcher defaultDispatcher = request.getRequestDispatcher("/welcome.jsp"); 
                 defaultDispatcher.forward(request, response); 
                 break;
         }
+    }
+    
+    // Méthode pour vérifier si la requête est une action (POST, PUT, DELETE)
+    private boolean isActionRequest(HttpServletRequest request) {
+        String method = request.getMethod();
+        return "POST".equalsIgnoreCase(method) || 
+               "PUT".equalsIgnoreCase(method) || 
+               "DELETE".equalsIgnoreCase(method);
     }
 
     @Override

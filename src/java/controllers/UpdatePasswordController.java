@@ -34,9 +34,11 @@ public class UpdatePasswordController extends HttpServlet {
        if (password.equals(passwordcnf)) {
            HttpSession session = request.getSession();
            Donneur d = (Donneur) session.getAttribute("donneur");
+           String email = null;
+           
            if (d == null) {
                // Si l'utilisateur n'est pas connecté, vérifier s'il y a un email en session
-               String email = (String) session.getAttribute("reset_email");
+               email = (String) session.getAttribute("reset_email");
                if (email != null) {
                    d = ds.findDonneurByEmail(email);
                    if (d == null) {
@@ -46,12 +48,21 @@ public class UpdatePasswordController extends HttpServlet {
                        return;
                    }
                } else {
-                   response.sendRedirect(request.getContextPath() + "/RouteController?page=login");
-                   return;
+                   // Essayer de récupérer l'email du donneur depuis la session
+                   Donneur sessionDonneur = (Donneur) session.getAttribute("donneur");
+                   if (sessionDonneur != null) {
+                       email = sessionDonneur.getEmail();
+                       d = ds.findDonneurByEmail(email);
+                   }
+                   
+                   if (d == null) {
+                       response.sendRedirect(request.getContextPath() + "/RouteController?page=login");
+                       return;
+                   }
                }
            }
            
-           // Mettre à jour le mot de passe sans hachage
+           // Mettre à jour le mot de passe
            d.setMotDePasse(password);
            ds.update(d);
            
@@ -65,8 +76,10 @@ public class UpdatePasswordController extends HttpServlet {
            session.removeAttribute("code_verification");
            
            // Rediriger vers la page de connexion avec un message de succès
-           request.setAttribute("success", "Mot de passe mis à jour avec succès");
-           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login");
+           request.setAttribute("successMessage", "Mot de passe mis à jour avec succès");
+           
+           // Utiliser forward au lieu de sendRedirect pour conserver les attributs de requête
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/auth/Authentification.jsp");
            dispatcher.forward(request, response);
        } else {
            request.setAttribute("msg", "Les mots de passe ne correspondent pas");

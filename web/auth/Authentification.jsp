@@ -15,8 +15,13 @@
         <link href="${pageContext.request.contextPath}/css/auth.css" rel="stylesheet">
         
         <%
-            session.removeAttribute("donneur");
-            session.removeAttribute("admin");
+            // Empêcher la mise en cache pour éviter le retour en arrière après déconnexion
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            
+            // Détruire la session existante
+            session.invalidate();
         %>
     </head>
     <body>
@@ -30,12 +35,29 @@
             <div class="login-right">
                 <div class="auth-body">
                     <h4 class="mb-4 text-center">Connexion</h4>
+                    
+                    <!-- Affichage des messages d'erreur -->
+                    <% if (request.getAttribute("error") != null) { %>
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill"></i> <%= request.getAttribute("error") %>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Affichage des messages de succès -->
+                    <% if (request.getAttribute("successMessage") != null) { %>
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle-fill"></i> <%= request.getAttribute("successMessage") %>
+                        </div>
+                    <% } %>
+                    
                     <form action="${pageContext.request.contextPath}/AuthentificationController" method="post" class="auth-form">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       value="<%= request.getAttribute("email") != null ? request.getAttribute("email") : "" %>" 
+                                       required>
                             </div>
                         </div>
 
@@ -70,12 +92,6 @@
                             Vous n'avez pas de compte ?
                             <a href="${pageContext.request.contextPath}/RouteController?page=inscription">Créer un compte</a>
                         </div>
-
-                        <% if (request.getParameter("msg") != null) {%>
-                        <div class="mt-3 text-danger text-center">
-                            <%= request.getParameter("msg")%>
-                        </div>
-                        <% }%>
                     </form>
                 </div>
             </div>
@@ -83,5 +99,17 @@
         
         <!-- Bootstrap JS Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Script pour empêcher la navigation arrière après déconnexion -->
+        <script>
+            window.onload = function() {
+                if (window.history && window.history.pushState) {
+                    window.history.pushState('forward', null, '${pageContext.request.contextPath}/RouteController?page=login');
+                    window.onpopstate = function() {
+                        window.history.pushState('forward', null, '${pageContext.request.contextPath}/RouteController?page=login');
+                    };
+                }
+            }
+        </script>
     </body>
 </html>

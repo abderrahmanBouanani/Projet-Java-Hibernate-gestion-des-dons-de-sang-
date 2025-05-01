@@ -31,6 +31,8 @@
                     String currentPage = request.getParameter("currentPage");
                     boolean isAdmin = session.getAttribute("admin") != null;
                     boolean isDonneur = session.getAttribute("donneur") != null;
+                    boolean isLoggedIn = isAdmin || isDonneur;
+                    boolean readOnlyMode = request.getAttribute("readOnlyMode") != null && (Boolean)request.getAttribute("readOnlyMode");
                 %>
                 
                 <% if (isAdmin) { %>
@@ -59,20 +61,21 @@
                             <i class="bi bi-bar-chart-fill"></i> Statistiques
                         </a>
                     </li>
-                <% } else if (isDonneur) { %>
+                <% } else { %>
                     <li class="<%= "profil".equals(currentPage) ? "active" : "" %>">
                         <a href="${pageContext.request.contextPath}/RouteController?page=profil">
-                            <i class="bi bi-person-circle"></i> Mon Profil
+                            <i class="bi bi-person-circle"></i> Profil
                         </a>
                     </li>
                     <li class="<%= "donHistory".equals(currentPage) ? "active" : "" %>">
                         <a href="${pageContext.request.contextPath}/RouteController?page=donHistory">
-                            <i class="bi bi-clock-history"></i> Mes Dons
+                            <i class="bi bi-clock-history"></i> Historique des Dons
                         </a>
                     </li>
+                    <!-- Suppression du lien vers les statistiques pour les utilisateurs non-administrateurs -->
                 <% } %>
                 
-                <% if (isAdmin || isDonneur) { %>
+                <% if (isLoggedIn) { %>
                     <li>
                         <a href="${pageContext.request.contextPath}/deconnexionController">
                             <i class="bi bi-box-arrow-right"></i> Déconnexion
@@ -102,8 +105,39 @@
                         <span class="badge bg-primary">Administrateur</span>
                     <% } else if (isDonneur) { %>
                         <span class="badge bg-success">Donneur</span>
+                    <% } else { %>
+                        <span class="badge bg-info">Mode Visiteur</span>
                     <% } %>
                 </div>
             </div>
+            
+            <!-- Bannière mode lecture seule -->
+            <% if (request.getAttribute("readOnlyMode") != null && (Boolean)request.getAttribute("readOnlyMode")) { %>
+                <div class="read-only-banner">
+                    <div>
+                        <i class="bi bi-eye"></i> Vous êtes en mode lecture seule. Certaines fonctionnalités sont limitées.
+                    </div>
+                    <a href="${pageContext.request.contextPath}/RouteController?page=login" class="btn">Se connecter</a>
+                </div>
+            <% } %>
+            
+            <!-- Affichage des messages d'erreur et de succès -->
+            <% if (request.getAttribute("error") != null) { %>
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill"></i> <%= request.getAttribute("error") %>
+                </div>
+            <% } %>
+            
+            <% if (request.getAttribute("successMessage") != null) { %>
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle-fill"></i> <%= request.getAttribute("successMessage") %>
+                </div>
+            <% } %>
+            
+            <% if (request.getAttribute("info") != null) { %>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill"></i> <%= request.getAttribute("info") %>
+                </div>
+            <% } %>
             
             <div class="container-fluid">

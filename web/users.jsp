@@ -186,5 +186,5 @@
 
 <jsp:include page="/WEB-INF/includes/footer.jsp" />
 
-```typescriptreact file="src/java/filter/SecurityFilter.java" isDeleted="true"
+\`\`\`typescriptreact file="src/java/filter/SecurityFilter.java" isDeleted="true"
 ...deleted...

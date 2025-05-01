@@ -11,6 +11,18 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-header {
@@ -18,11 +30,28 @@ body {
   color: white;
   padding: 20px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("https://images.unsplash.com/photo-1615461066841-6116e61058f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80")
+    center / cover;
+  opacity: 0.2;
+  z-index: 0;
 }
 
 .auth-header h2 {
   margin: 0;
   font-size: 1.8rem;
+  position: relative;
+  z-index: 1;
 }
 
 .auth-body {
@@ -45,6 +74,12 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.auth-form .input-group:focus-within {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 0.2rem rgba(231, 76, 60, 0.25);
 }
 
 .auth-form .input-group-text {
@@ -85,11 +120,14 @@ body {
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  font-weight: 500;
 }
 
 .auth-form .btn:hover {
   background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .auth-form .btn-outline-secondary {
@@ -142,4 +180,64 @@ body {
   color: #e74c3c;
   margin-top: 10px;
   text-align: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.success-message {
+  color: #28a745;
+  margin-top: 10px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .auth-container {
+    margin: 20px;
+    max-width: none;
+  }
+
+  .auth-body {
+    padding: 20px;
+  }
 }

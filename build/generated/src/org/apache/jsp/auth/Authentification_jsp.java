@@ -63,8 +63,13 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("        \n");
       out.write("        ");
 
-            session.removeAttribute("donneur");
-            session.removeAttribute("admin");
+            // Empêcher la mise en cache pour éviter le retour en arrière après déconnexion
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            response.setHeader("Pragma", "no-cache");
+            response.setDateHeader("Expires", 0);
+            
+            // Détruire la session existante
+            session.invalidate();
         
       out.write("\n");
       out.write("    </head>\n");
@@ -79,6 +84,33 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("            <div class=\"login-right\">\n");
       out.write("                <div class=\"auth-body\">\n");
       out.write("                    <h4 class=\"mb-4 text-center\">Connexion</h4>\n");
+      out.write("                    \n");
+      out.write("                    <!-- Affichage des messages d'erreur -->\n");
+      out.write("                    ");
+ if (request.getAttribute("error") != null) { 
+      out.write("\n");
+      out.write("                        <div class=\"alert alert-danger\">\n");
+      out.write("                            <i class=\"bi bi-exclamation-triangle-fill\"></i> ");
+      out.print( request.getAttribute("error") );
+      out.write("\n");
+      out.write("                        </div>\n");
+      out.write("                    ");
+ } 
+      out.write("\n");
+      out.write("                    \n");
+      out.write("                    <!-- Affichage des messages de succès -->\n");
+      out.write("                    ");
+ if (request.getAttribute("successMessage") != null) { 
+      out.write("\n");
+      out.write("                        <div class=\"alert alert-success\">\n");
+      out.write("                            <i class=\"bi bi-check-circle-fill\"></i> ");
+      out.print( request.getAttribute("successMessage") );
+      out.write("\n");
+      out.write("                        </div>\n");
+      out.write("                    ");
+ } 
+      out.write("\n");
+      out.write("                    \n");
       out.write("                    <form action=\"");
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/AuthentificationController\" method=\"post\" class=\"auth-form\">\n");
@@ -86,7 +118,11 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                            <label for=\"email\" class=\"form-label\">Email</label>\n");
       out.write("                            <div class=\"input-group\">\n");
       out.write("                                <span class=\"input-group-text\"><i class=\"bi bi-envelope\"></i></span>\n");
-      out.write("                                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" required>\n");
+      out.write("                                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" \n");
+      out.write("                                       value=\"");
+      out.print( request.getAttribute("email") != null ? request.getAttribute("email") : "" );
+      out.write("\" \n");
+      out.write("                                       required>\n");
       out.write("                            </div>\n");
       out.write("                        </div>\n");
       out.write("\n");
@@ -125,18 +161,6 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
       out.write("/RouteController?page=inscription\">Créer un compte</a>\n");
       out.write("                        </div>\n");
-      out.write("\n");
-      out.write("                        ");
- if (request.getParameter("msg") != null) {
-      out.write("\n");
-      out.write("                        <div class=\"mt-3 text-danger text-center\">\n");
-      out.write("                            ");
-      out.print( request.getParameter("msg"));
-      out.write("\n");
-      out.write("                        </div>\n");
-      out.write("                        ");
- }
-      out.write("\n");
       out.write("                    </form>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
@@ -144,6 +168,22 @@ public final class Authentification_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("        \n");
       out.write("        <!-- Bootstrap JS Bundle with Popper -->\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js\"></script>\n");
+      out.write("        \n");
+      out.write("        <!-- Script pour empêcher la navigation arrière après déconnexion -->\n");
+      out.write("        <script>\n");
+      out.write("            window.onload = function() {\n");
+      out.write("                if (window.history && window.history.pushState) {\n");
+      out.write("                    window.history.pushState('forward', null, '");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/RouteController?page=login');\n");
+      out.write("                    window.onpopstate = function() {\n");
+      out.write("                        window.history.pushState('forward', null, '");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("/RouteController?page=login');\n");
+      out.write("                    };\n");
+      out.write("                }\n");
+      out.write("            }\n");
+      out.write("        </script>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

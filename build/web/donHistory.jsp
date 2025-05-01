@@ -20,11 +20,7 @@
     // Vérifier si l'utilisateur est connecté
     Admin admin = (Admin) session.getAttribute("admin");
     Donneur donneur = (Donneur) session.getAttribute("donneur");
-    
-    if (admin == null && donneur == null) {
-        response.sendRedirect(request.getContextPath() + "/RouteController?page=login");
-        return;
-    }
+    boolean readOnlyMode = request.getAttribute("readOnlyMode") != null && (Boolean)request.getAttribute("readOnlyMode");
     
     DonService donService = new DonService();
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -35,12 +31,15 @@
         dons = donService.findAll();
     } else if (donneur != null) {
         dons = donService.getDonsByDonneur(donneur.getIdUser());
+    } else if (readOnlyMode) {
+        // En mode lecture seule, afficher tous les dons
+        dons = donService.findAll();
     }
 %>
 
 <div class="row mb-4">
     <div class="col-md-12">
-        <div class="card">
+        <div class="card <%= readOnlyMode ? "read-only-mode" : "" %>">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="card-title"><i class="bi bi-clock-history"></i> Historique complet des dons</h3>
@@ -90,10 +89,10 @@
     </div>
 </div>
 
-<% if (admin != null) { %>
+<% if (admin != null || readOnlyMode) { %>
 <div class="row">
     <div class="col-md-6">
-        <div class="card">
+        <div class="card <%= readOnlyMode ? "read-only-mode" : "" %>">
             <div class="card-header">
                 <h3 class="card-title"><i class="bi bi-filter"></i> Filtres</h3>
             </div>
@@ -147,7 +146,7 @@
     </div>
     
     <div class="col-md-6">
-        <div class="card">
+        <div class="card <%= readOnlyMode ? "read-only-mode" : "" %>">
             <div class="card-header">
                 <h3 class="card-title"><i class="bi bi-graph-up"></i> Statistiques</h3>
             </div>
@@ -210,7 +209,7 @@
             }
         });
         
-        <% if (admin != null) { %>
+        <% if (admin != null || readOnlyMode) { %>
         // Filtrage avancé
         document.getElementById('applyFilter').addEventListener('click', function() {
             const dateDebut = document.getElementById('dateDebut').value;

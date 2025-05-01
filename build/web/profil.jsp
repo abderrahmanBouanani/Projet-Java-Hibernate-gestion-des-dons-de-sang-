@@ -8,19 +8,22 @@
 <jsp:include page="/WEB-INF/includes/header.jsp">
     <jsp:param name="title" value="Mon Profil" />
     <jsp:param name="currentPage" value="profil" />
-    <jsp:param name="pageTitle" value="Mon Profil" />
+    <jsp:param name="pageTitle" value="Profil Donneur" />
 </jsp:include>
 
 <%
     Donneur donneur = (Donneur) session.getAttribute("donneur");
-    if(donneur == null){
-        response.sendRedirect(request.getContextPath() + "/RouteController?page=login");
-        return;
+    boolean readOnlyMode = request.getAttribute("readOnlyMode") != null && (Boolean)request.getAttribute("readOnlyMode");
+    
+    // Si l'utilisateur n'est pas connecté, afficher un profil par défaut
+    if (donneur == null) {
+        // Créer un donneur fictif pour le mode lecture seule
+        donneur = new Donneur("Visiteur", "visiteur@exemple.com", "", "N/A");
     }
     
     // Récupérer la liste des dons
     DonService ds = new DonService();
-    List<Don> dons = ds.getDonsByDonneur(donneur.getIdUser());
+    List<Don> dons = donneur.getIdUser() != null ? ds.getDonsByDonneur(donneur.getIdUser()) : null;
     
     // Format de la date
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -28,7 +31,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <div class="card">
+        <div class="card <%= readOnlyMode ? "read-only-mode" : "" %>">
             <div class="card-header">
                 <h2><i class="bi bi-person-circle"></i> Informations personnelles</h2>
             </div>
@@ -57,21 +60,40 @@
                 </ul>
                 
                 <div class="mt-4 text-center">
-                    <a href="${pageContext.request.contextPath}/RouteController?page=modification&id=<%= donneur.getIdUser() %>" class="btn btn-outline-primary">
-                        <i class="bi bi-pencil"></i> Modifier mon profil
-                    </a>
+                    <% if (!readOnlyMode) { %>
+                        <a href="${pageContext.request.contextPath}/RouteController?page=modification&id=<%= donneur.getIdUser() %>" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil"></i> Modifier mon profil
+                        </a>
+                    <% } else { %>
+                        <a href="${pageContext.request.contextPath}/RouteController?page=login" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-right"></i> Se connecter pour modifier
+                        </a>
+                    <% } %>
                 </div>
             </div>
         </div>
     </div>
     
     <div class="col-md-8">
-        <div class="card">
+        <div class="card <%= readOnlyMode ? "read-only-mode" : "" %>">
             <div class="card-header">
-                <h2><i class="bi bi-clock-history"></i> Historique de mes dons</h2>
+                <h2><i class="bi bi-clock-history"></i> Historique des dons</h2>
             </div>
             <div class="card-body">
-                <% if (dons != null && !dons.isEmpty()) { %>
+                <% if (readOnlyMode) { %>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> Connectez-vous pour voir votre historique de dons personnalisé.
+                    </div>
+                    
+                    <div class="text-center py-4">
+                        <img src="${pageContext.request.contextPath}/images/blood-donation.svg" alt="Don de sang" style="max-width: 200px; opacity: 0.7;">
+                        <h4 class="mt-3">Historique des dons non disponible en mode visiteur</h4>
+                        <p class="text-muted">Connectez-vous pour accéder à votre historique personnel</p>
+                        <a href="${pageContext.request.contextPath}/RouteController?page=login" class="btn btn-primary mt-2">
+                            <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                        </a>
+                    </div>
+                <% } else if (dons != null && !dons.isEmpty()) { %>
                     <div class="table-container">
                         <table class="table table-striped">
                             <thead>
