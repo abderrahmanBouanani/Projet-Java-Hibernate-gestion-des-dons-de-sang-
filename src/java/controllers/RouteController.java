@@ -70,6 +70,11 @@ public class RouteController extends HttpServlet {
                 verificationDispatcher.forward(request, response); 
                 break;
                 
+            case "updatePassword":
+                RequestDispatcher updatePasswordDispatcher = request.getRequestDispatcher("/auth/updateMotdePasse.jsp"); 
+                updatePasswordDispatcher.forward(request, response); 
+                break;
+                
             // Pages principales
             case "users":
                 RequestDispatcher usersDispatcher = request.getRequestDispatcher("/users.jsp"); 
@@ -77,6 +82,14 @@ public class RouteController extends HttpServlet {
                 break;
             
             case "modification":
+                // Récupérer l'ID du donneur à modifier
+                String id = request.getParameter("id");
+                if (id != null && !id.isEmpty()) {
+                    Donneur donneur = donneurService.findById(Integer.parseInt(id));
+                    if (donneur != null) {
+                        request.setAttribute("donneur", donneur);
+                    }
+                }
                 RequestDispatcher modificationDispatcher = request.getRequestDispatcher("/modification.jsp"); 
                 modificationDispatcher.forward(request, response); 
                 break;    

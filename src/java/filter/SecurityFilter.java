@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(filterName = "SecurityFilter", urlPatterns = {"/users.jsp", "/profil.jsp", "/donHistory.jsp"})
+@WebFilter(filterName = "SecurityFilter", urlPatterns = {"/users.jsp", "/profil.jsp", "/donHistory.jsp", "/dons/*", "/donGraph.jsp"})
 public class SecurityFilter implements Filter {
     
     @Override

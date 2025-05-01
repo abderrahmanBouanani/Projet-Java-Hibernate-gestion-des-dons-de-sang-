@@ -23,44 +23,32 @@ public class InscriptionController extends HttpServlet {
 
        String op = request.getParameter("op");
        if (op == null) {
-           String id = request.getParameter("id");
-           if (id == null || id.isEmpty()) {
-               String nom = request.getParameter("nom");
-               String email = request.getParameter("email");
-               String password = request.getParameter("mdp");
-               String groupeSanguin = request.getParameter("groupeSanguin");
-               ds.create(new Donneur(nom, email, password, groupeSanguin));
-               
-               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
-               dispatcher.forward(request, response); 
-           } else {
-               String nom = request.getParameter("nom");
-               String email = request.getParameter("email");
-               String password = request.getParameter("mdp");
-               String groupeSanguin = request.getParameter("groupeSanguin");                
-               Donneur u = new Donneur(nom, email, password, groupeSanguin);
-               u.setIdUser(Integer.parseInt(id));
-               ds.update(u);
-               
-               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=users"); 
-               dispatcher.forward(request, response); 
+           // Création d'un nouveau donneur (inscription uniquement)
+           String nom = request.getParameter("nom");
+           String email = request.getParameter("email");
+           String password = request.getParameter("mdp");
+           String groupeSanguin = request.getParameter("groupeSanguin");
+           
+           // Vérifier si l'email existe déjà
+           Donneur existingDonneur = ds.findDonneurByEmail(email);
+           if (existingDonneur != null) {
+               request.setAttribute("error", "Cet email est déjà utilisé");
+               RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=inscription"); 
+               dispatcher.forward(request, response);
+               return;
            }
+           
+           ds.create(new Donneur(nom, email, password, groupeSanguin));
+           
+           // Rediriger vers la page de connexion avec un message de succès
+           request.setAttribute("success", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
+           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
+           dispatcher.forward(request, response);
        } else if (op.equals("delete")) {
            String id = request.getParameter("id");
            ds.delete(ds.findById(Integer.parseInt(id)));
            
            RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=users"); 
-           dispatcher.forward(request, response); 
-       } else if (op.equals("update")) {
-           String id = request.getParameter("id");
-           Donneur u = ds.findById(Integer.parseInt(id));
-           
-           request.setAttribute("id", u.getIdUser()); 
-           request.setAttribute("nom", u.getName()); 
-           request.setAttribute("email", u.getEmail()); 
-           request.setAttribute("mdp", u.getMotDePasse()); 
-           
-           RequestDispatcher dispatcher = request.getRequestDispatcher("RouteController?page=login"); 
            dispatcher.forward(request, response); 
        }
    }
@@ -79,7 +67,6 @@ public class InscriptionController extends HttpServlet {
 
    @Override
    public String getServletInfo() {
-       return "Short description";
+       return "Inscription Controller";
    }
-
 }

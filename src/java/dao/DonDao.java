@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.Query;
 import util.HibernateUtil;
 
 public class DonDao extends AbstractDao<Don> {
@@ -70,6 +71,66 @@ public class DonDao extends AbstractDao<Don> {
             session = HibernateUtil.getSessionFactory().openSession();
             tx = session.beginTransaction();
             stats = session.getNamedQuery("Don.countDonByCentreDon").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return stats;
+    }
+    
+    public List<Object[]> countDonsByMonth() {
+        Session session = null;
+        Transaction tx = null;
+        List<Object[]> stats = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            
+            String hql = "SELECT MONTH(d.id.dateDon) as mois, COUNT(d) as total " +
+                         "FROM Don d " +
+                         "GROUP BY MONTH(d.id.dateDon) " +
+                         "ORDER BY mois";
+            
+            Query query = session.createQuery(hql);
+            stats = query.list();
+            
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return stats;
+    }
+    
+    public List<Object[]> countDonsByBloodGroup() {
+        Session session = null;
+        Transaction tx = null;
+        List<Object[]> stats = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            tx = session.beginTransaction();
+            
+            String hql = "SELECT d.donneur.groupeSanguin as groupe, COUNT(d) as total " +
+                         "FROM Don d " +
+                         "GROUP BY d.donneur.groupeSanguin " +
+                         "ORDER BY groupe";
+            
+            Query query = session.createQuery(hql);
+            stats = query.list();
+            
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {
