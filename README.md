@@ -57,7 +57,8 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ## 5. 🎯 modèle conceptuel de la base généré
 
-![image](https://github.com/user-attachments/assets/bdfa134c-fcb2-48b7-91ff-f8d20c9aad4a)
+![image](https://github.com/user-attachments/assets/71b80123-2e7c-424a-8ffd-996c9add70bd)
+
 
 ---
 
@@ -69,3 +70,12 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 ![image](https://github.com/user-attachments/assets/6d82a23b-378c-4704-bccf-857a54dc75d5)
 ![image](https://github.com/user-attachments/assets/858b5d48-06a9-4ada-8808-c16b0cfdf451)
 ![image](https://github.com/user-attachments/assets/51cbb020-dcd8-4912-9e42-1043b7dc604e)
+
+##  7. Architecture du projet :
+
+![Editor _ Mermaid Chart-2025-05-02-170552](https://github.com/user-attachments/assets/1ce885c8-3c8c-45da-aece-6072eaa66043)
+
+
+##  8. La vidéo :
+
+https://github.com/user-attachments/assets/b1cc0a91-cf5a-442e-8672-a06097a52df8
