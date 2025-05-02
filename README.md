@@ -57,7 +57,7 @@ Les centres de don de sang font face à plusieurs défis majeurs :
 
 ## 5. 🎯 modèle conceptuel de la base généré
 
-![image](https://github.com/user-attachments/assets/71b80123-2e7c-424a-8ffd-996c9add70bd)
+![image](https://github.com/user-attachments/assets/5799854d-cefb-4fc7-8069-f48ca98f636c)
 
 
 ---
